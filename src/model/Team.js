@@ -14,7 +14,8 @@ class Team extends Model {
   }
 
   static associate(models) {
-    this.belongsTo();
+    this.hasMany(models.User, { foreignKey: "team_id", as: "team_users" });
+    this.hasOne(models.Pixel, { foreignKey: "team_id", as: "team_pixel" });
   }
 }
 
