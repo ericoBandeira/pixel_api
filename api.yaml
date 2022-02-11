@@ -1,0 +1,79 @@
+---
+openapi: 3.0.0
+info:
+  title: API do app pixel
+  description: API do app pixel
+  contact:
+    email: lucas.engen.cc@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/lucas832/pixel_api/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:3001
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: comuns
+  description: Rotas que não exigem token
+- name: trancadas
+  description: Rotas que exigem o token de login
+paths:
+  /health:
+    get:
+      tags:
+      - comuns
+      summary: obtém status do servidor
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      operationId: searchInventory
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HealthData'
+        "400":
+          description: bad input parameter
+  /login:
+    post:
+      tags:
+      - trancadas
+      summary: efetua o login
+      responses:
+        "200":
+          description: usuário fez login
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResult'
+components:
+  schemas:
+    HealthData:
+      required:
+      - pid
+      type: object
+      properties:
+        pid:
+          type: integer
+          description: id do processo do servidor
+          example: 52
+    LoginResult:
+      required:
+      - email
+      - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: id do usuário criado
+        email:
+          type: string
+          description: email do usuário criado
