@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   banco:
-    image: bitnami/postgresql:13
-    container_name: api-banco
+    image: bitnami/postgresql:latest
+    container_name: pixel-api-database
     restart: always
     environment:
       POSTGRES_DB: ${DB_NAME}
@@ -11,30 +11,14 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
       DATABASE_HOST: ${DB_HOST}
     ports:
-      - "5432:${DB_PORT}"
+      - "${DB_PORT}:5432" # mapeia a porta 5432 do container para a DB_PORT local
     networks:
       - rede-interna
     volumes:
       - postgresdb_vol:/var/lib/postgresql/data
 
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    container_name: api-pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    depends_on:
-      - banco
-    links:
-      - banco:${DB_HOST}
-    ports:
-      - "${PGADMIN_PORT}:80"
-    networks:
-      - rede-interna
-
   api:
-    container_name: api-service
+    container_name: pixel-api
     build: .
     restart: always
     depends_on:
