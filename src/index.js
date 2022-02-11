@@ -11,7 +11,8 @@ const morgan = require("morgan");
 
 env.config();
 
-const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE } = process.env;
+const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT } =
+  process.env;
 
 // Inicia o banco de dados
 const connectionString = `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
@@ -65,4 +66,4 @@ app.use(express.json());
 app.use(morgan("short"));
 app.use(routes);
 
-app.listen(9000);
+app.listen(APP_PORT);
