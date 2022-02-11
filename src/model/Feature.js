@@ -17,7 +17,9 @@ class Feature extends Model {
     );
   }
 
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.Pixel, { foreignKey: "pixel_id" });
+  }
 }
 
 module.exports = Feature;
