@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  banco:
+    image: bitnami/postgresql:13
+    container_name: api-banco
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      DATABASE_HOST: ${DB_HOST}
+    ports:
+      - "5432:${DB_PORT}"
+    networks:
+      - rede-interna
+    volumes:
+      - postgresdb_vol:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: api-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - banco
+    links:
+      - banco:${DB_HOST}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    networks:
+      - rede-interna
+
+  api:
+    container_name: api-service
+    build: .
+    restart: always
+    depends_on:
+      - banco
+    networks:
+      - rede-interna
+    links:
+      - banco:${DB_HOST}
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    environment:
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+
+volumes:
+  node_modules_vol:
+  postgresdb_vol:
+
+networks:
+  rede-interna:
+    name: rede-interna
+    driver: bridge

@@ -1,28 +1,9 @@
 {
-   "name": "pixel_api",
-   "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
-   "devDependencies": {
-      "@types/node": "^8.0.29",
-      "nodemon": "^2.0.15",
-      "ts-node": "3.3.0",
-      "typescript": "3.3.3333"
-   },
-   "dependencies": {
-      "@types/express": "^4.17.13",
-      "axios": "^0.25.0",
-      "body-parser": "^1.19.1",
-      "express": "^4.15.4",
-      "jest": "^27.5.1",
-      "jsonwebtoken": "^8.5.1",
-      "pg": "^8.4.0",
-      "pg-promise": "^10.11.1",
-      "reflect-metadata": "^0.1.10",
-      "typeorm": "0.2.41"
-   },
-   "scripts": {
-      "dev": "nodemon src/index.ts",
-      "start": "ts-node src/index.ts",
-      "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
-   }
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "sequelize": "^6.16.1",
+    "sequelize-cli": "^6.4.1"
+  }
 }
