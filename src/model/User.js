@@ -4,14 +4,9 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        id: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
-        },
-        name: { type: DataTypes.TEXT, allowNull: false },
-        password: { type: DataTypes.TEXT, allowNull: false },
+        id: { type: DataTypes.INTEGER },
+        name: { type: DataTypes.TEXT },
+        password: { type: DataTypes.TEXT },
       },
       {
         sequelize,
@@ -20,7 +15,10 @@ class User extends Model {
     );
   }
 
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.Team, { foreignKey: "team_id" });
+    this.hasOne(models.Pixel, { foreignKey: "user_id" });
+  }
 }
 
 module.exports = User;
