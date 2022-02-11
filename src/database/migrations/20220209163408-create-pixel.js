@@ -11,6 +11,20 @@ module.exports = {
       },
       name: { type: DataTypes.TEXT, allowNull: false },
       eye: { type: DataTypes.TEXT, allowNull: false },
+      team_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: "teams", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: "teams", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
     });
   },
 

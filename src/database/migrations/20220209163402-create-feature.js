@@ -13,6 +13,13 @@ module.exports = {
       value: { type: DataTypes.TEXT, allowNull: false },
       active: { type: DataTypes.BOOLEAN, allowNull: false },
       feeding_date: { type: DataTypes.DATE, allowNull: false },
+      pixel_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: "pixels", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
     });
   },
 
