@@ -47,23 +47,29 @@ const options =
 
 const db = new Sequelize(connectionString, options);
 
-db.authenticate().then(() => {
-  Feature.init(db);
-  Pixel.init(db);
-  Team.init(db);
-  User.init(db);
+db.authenticate().then(
+  () => {
+    Feature.init(db);
+    Pixel.init(db);
+    Team.init(db);
+    User.init(db);
 
-  Feature.associate(db.models);
-  Pixel.associate(db.models);
-  Team.associate(db.models);
-  User.associate(db.models);
-});
+    Feature.associate(db.models);
+    Pixel.associate(db.models);
+    Team.associate(db.models);
+    User.associate(db.models);
 
-// Inicia o servidor HTTP
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(morgan("short"));
-app.use(routes);
+    // Inicia o servidor HTTP
+    const app = express();
+    app.use(cors());
+    app.use(express.json());
+    app.use(morgan("short"));
+    app.use(routes);
 
-app.listen(APP_PORT);
+    app.listen(APP_PORT);
+    console.info(`HTTP server listening on port ${APP_PORT}`);
+  },
+  (rejected) => {
+    console.error(`could not start HTTP server: ${rejected}`);
+  }
+);
