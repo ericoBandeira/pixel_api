@@ -1,15 +1,20 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
-export class User {
+export class Pixel {
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    username: string;
+    nome: string;
 
     @Column()
-    password: string;
+    olho: string;
 
+    @Column()
+    cor: string;
+
+    @Column()
+    alimentado: Date;
 }
