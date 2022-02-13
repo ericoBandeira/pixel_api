@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   banco:
-    image: bitnami/postgresql:latest
+    image: bitnami/postgresql:13
     container_name: pixel-api-database
     restart: always
     environment:
@@ -26,11 +26,9 @@ services:
     networks:
       - rede-interna
     links:
-      - banco:${DB_HOST}
+      - banco
     ports:
       - "${APP_PORT}:${APP_PORT}"
-    environment:
-      DATABASE_URL: postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
 volumes:
   node_modules_vol:
