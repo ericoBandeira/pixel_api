@@ -2,21 +2,26 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return await queryInterface.createTable("features", {
+    return await queryInterface.createTable("pixels", {
       id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: { type: DataTypes.TEXT, allowNull: false },
-      value: { type: DataTypes.TEXT, allowNull: false },
-      active: { type: DataTypes.BOOLEAN, allowNull: false },
-      feeding_date: { type: DataTypes.DATE, allowNull: false },
-      pixel_id: {
+      name: { type: Sequelize.TEXT, allowNull: false },
+      eye: { type: Sequelize.TEXT, allowNull: false },
+      team_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "pixels", key: "id" },
+        references: { model: "teams", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: "teams", key: "id" },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
@@ -32,6 +37,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return await queryInterface.dropTable("features");
+    return await queryInterface.dropTable("pixels");
   },
 };
