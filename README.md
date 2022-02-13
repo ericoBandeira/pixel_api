@@ -10,7 +10,7 @@ Esta é a API do projeto pixel
 touch .env
 echo DB_HOST=localhost > .env
 echo APP_PORT=3001 >> .env
-echo DB_PORT=3002 >> .env
+echo DB_PORT=5432 >> .env
 echo DB_NAME=database >> .env
 echo DB_USER=admin >> .env
 echo DB_PASS=postgres >> .env
