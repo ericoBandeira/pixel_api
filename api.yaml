@@ -103,6 +103,23 @@ paths:
         "200":
           description: o pixel foi criado
 
+  /features:
+    get:
+      tags:
+        - comuns
+      summary: obtém a lista de todos as características dos pixels
+      description: Retorna a lista de características possíveis de editar em um pixel
+
+      responses:
+        "200":
+          description: a lista de características foi obtida com sucesso
+          #content:
+          #  application/json:
+          #    schema:
+          #      type: array
+          #      items:
+          #        $ref: "#/components/schemas/LoginResult"
+
   /pixel/{pixelId}/feed:
     post:
       tags:
