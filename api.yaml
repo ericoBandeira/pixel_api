@@ -83,6 +83,55 @@ paths:
         "200":
           description: o pixel foi criado
 
+  /pixel/{name}:
+    get:
+      tags:
+        - "comuns"
+      summary: Obtém um pixel por nome
+      description: Pesquisa por um pixel que contenha um determinado nome. O nome dos pixels é único
+      parameters:
+        - name: "name"
+          in: "path"
+          description: "nome do pixel a ser retornado"
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+
+      responses:
+        "200":
+          description: o pixel foi criado
+
+  /pixel/{pixelId}/feed:
+    post:
+      tags:
+        - comuns
+      summary: alimenta um pixel pelo id
+      description: Pesquisa por um pixel com um determinado id e alimenta-o
+      parameters:
+        - name: "pixelId"
+          in: "path"
+          description: "id do pixel a ser alimentado"
+          required: true
+          content:
+            application/json:
+              schema:
+                type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/FeedPixelBody"
+
+      responses:
+        "200":
+          description: o pixel foi alimentado
+
 components:
   schemas:
     HealthData:
@@ -133,3 +182,47 @@ components:
         eye:
           type: string
           example: olho 1
+
+    FeedPixelBody:
+      required:
+        - visibility
+        - match
+        - control
+        - consistence
+        - recognition
+        - efficiency
+        - minimalism
+        - error_prevention
+      properties:
+        visibility:
+          type: integer
+          description: visibilidade
+          example: 0
+        match:
+          type: integer
+          description: senha do usuário
+          example: 10
+        control:
+          type: integer
+          description: controle
+          example: 1
+        consistence:
+          type: integer
+          description: consistência
+          example: 2
+        recognition:
+          type: integer
+          description: consistência
+          example: 3
+        efficiency:
+          type: integer
+          description: consistência
+          example: 0
+        minimalism:
+          type: integer
+          description: consistência
+          example: 0
+        error_prevention:
+          type: integer
+          description: consistência
+          example: 0
