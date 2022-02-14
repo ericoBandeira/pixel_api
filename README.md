@@ -28,4 +28,4 @@ sudo docker-compose up -d --build
 curl localhost:$APP_PORT/health
 ```
 
-_IMPORTANTE_: substitue a variável `$APP_PORT` pela porta da aplicação (Padrão: 3001).
+_IMPORTANTE_: substitua a variável `$APP_PORT` pela porta da aplicação (Padrão: 3001).
