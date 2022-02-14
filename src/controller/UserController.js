@@ -1,4 +1,6 @@
 const User = require("../model/User");
+const { hashPassword } = require("../password");
+const bcrypt = require("bcrypt");
 
 async function loginUser(req, res) {
   try {
@@ -61,7 +63,9 @@ async function createUser(req, res) {
     return res.status(200).send(createdUser);
   } catch (error) {
     console.log(`could not create user: ${error}`);
-    return res.status(500).json({ error: "internal error during user register" });
+    return res
+      .status(500)
+      .json({ error: "internal error during user register" });
   }
 }
 
