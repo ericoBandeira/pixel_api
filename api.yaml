@@ -217,7 +217,7 @@ components:
           example: 0
         match:
           type: integer
-          description: senha do usuário
+          description: correspondência
           example: 10
         control:
           type: integer
