@@ -14,5 +14,9 @@ routes.post("/pixel/new", PixelController.createPixel);
 routes.get("/pixel/:name", PixelController.getPixelByName);
 routes.post("/pixel/:id/feed", PixelController.feedPixel);
 routes.get("/features", FeatureController.getFeatures);
+routes.post(
+  "/pixel/:id/feature/:feat_id/enable",
+  PixelController.enablePixelFeature
+);
 
 module.exports = routes;
