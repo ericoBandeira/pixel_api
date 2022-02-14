@@ -120,6 +120,16 @@ paths:
           #      items:
           #        $ref: "#/components/schemas/LoginResult"
 
+  /pixel/by-mail/{mail}
+    get:
+      tags:
+        - comuns
+      summary: retorna os pixels de um usuário
+
+      responses:
+        "200":
+          description: O usuário possui um pixel associado a ele
+
   /pixel/{pixelId}/feed:
     post:
       tags:
