@@ -10,20 +10,20 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/lucas832/pixel_api/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: http://localhost:3001
-  description: SwaggerHub API Auto Mocking
+  - url: https://virtserver.swaggerhub.com/lucas832/pixel_api/1.0.0
+    description: SwaggerHub API Auto Mocking
+  - url: http://localhost:3001
+    description: SwaggerHub API Auto Mocking
 tags:
-- name: comuns
-  description: Rotas que não exigem token
-- name: trancadas
-  description: Rotas que exigem o token de login
+  - name: comuns
+    description: Rotas que não exigem token
+  - name: trancadas
+    description: Rotas que exigem o token de login
 paths:
   /health:
     get:
       tags:
-      - comuns
+        - comuns
       summary: obtém status do servidor
       description: |
         By passing in the appropriate options, you can search for
@@ -37,14 +37,23 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/HealthData'
+                  $ref: "#/components/schemas/HealthData"
         "400":
           description: bad input parameter
   /login:
     post:
       tags:
-      - trancadas
+        - trancadas
       summary: efetua o login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/LoginRequest"
+
       responses:
         "200":
           description: usuário fez login
@@ -53,22 +62,56 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LoginResult'
+                  $ref: "#/components/schemas/LoginResult"
+
+  /pixel/new:
+    post:
+      tags:
+        - comuns
+      summary: cria um novo pixel
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CreatePixelRequest"
+
+      responses:
+        "200":
+          description: o pixel foi criado
+
 components:
   schemas:
     HealthData:
-      required:
-      - pid
       type: object
       properties:
-        pid:
-          type: integer
-          description: id do processo do servidor
-          example: 52
+        message:
+          type: string
+          description: mensagem contendo o PID do servidor
+          example: server running with pid 10
+
+    LoginRequest:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          description: email do usuário
+          example: email@test.com
+        password:
+          type: string
+          description: senha do usuário
+          example: test1234@
+
     LoginResult:
       required:
-      - email
-      - id
+        - email
+        - id
       type: object
       properties:
         id:
@@ -77,3 +120,16 @@ components:
         email:
           type: string
           description: email do usuário criado
+
+    CreatePixelRequest:
+      required:
+        - name
+        - eye
+      type: object
+      properties:
+        name:
+          type: string
+          example: pixel 1
+        eye:
+          type: string
+          example: olho 1
