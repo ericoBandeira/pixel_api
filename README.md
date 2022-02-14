@@ -29,3 +29,13 @@ curl localhost:$APP_PORT/health
 ```
 
 _IMPORTANTE_: substitua a variável `$APP_PORT` pela porta da aplicação (Padrão: 3001).
+
+4 - Suba as tabelas do banco
+
+```bash
+export DATABASE_URL=url do banco
+npx sequelize db:migrate
+npx sequelize db:seed:all
+```
+
+_IMPORTANTE_: a url do banco é construída da seguinte maneira: `postgres://$DB_USER:$DB_PASS@$DB_HOST:$DB_PORT/$DB_NAME`
