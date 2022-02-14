@@ -8,7 +8,7 @@ Esta é a API do projeto pixel
 
 ```bash
 touch .env
-echo DB_HOST=localhost > .env
+echo DB_HOST=pixel-api-database > .env
 echo APP_PORT=3001 >> .env
 echo DB_PORT=5432 >> .env
 echo DB_NAME=database >> .env
