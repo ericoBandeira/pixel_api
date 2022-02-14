@@ -69,4 +69,20 @@ async function createUser(req, res) {
   }
 }
 
-module.exports = { loginUser, createUser };
+async function findPixelByUser(req, res) {
+  const { mail } = req.params;
+
+  const user = await User.findOne({ where: { mail } });
+  if (!user) {
+    return res.status(404).json({ error: "user not found" });
+  }
+
+  const pixel = await user.getPixel();
+  if (!pixel) {
+    return res.status(404).json({ error: "user doesn't have any pixel" });
+  }
+
+  return res.status(200).json(pixel);
+}
+
+module.exports = { loginUser, createUser, findPixelByUser };
