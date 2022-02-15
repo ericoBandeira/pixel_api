@@ -14,6 +14,7 @@ echo DB_PORT=5432 >> .env
 echo DB_NAME=database >> .env
 echo DB_USER=admin >> .env
 echo DB_PASS=postgres >> .env
+echo SECRET=key >> .env
 ```
 
 2 - Execute a aplicação
