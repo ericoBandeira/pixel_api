@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: { type: Sequelize.TEXT, allowNull: false, unique: true },
+      name: { type: Sequelize.TEXT, allowNull: false },
       eye: { type: Sequelize.TEXT, allowNull: false },
       team_id: {
         type: Sequelize.INTEGER,
@@ -21,7 +21,7 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "teams", key: "id" },
+        references: { model: "users", key: "id" },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
