@@ -69,9 +69,13 @@ async function createUser(req, res) {
 }
 
 async function findPixelByUser(req, res) {
-  const { mail } = req.params;
+  const { email } = req.query;
 
-  const user = await User.findOne({ where: { mail } });
+  if (!email) {
+    return res.status(400).json({ error: "missing required information" });
+  }
+
+  const user = await User.findOne({ where: { email } });
   if (!user) {
     return res.status(404).json({ error: "user not found" });
   }
