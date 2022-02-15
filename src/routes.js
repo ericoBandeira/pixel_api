@@ -7,7 +7,7 @@ const jwt = require("./jwt");
 
 const routes = express.Router();
 
-routes.get("/health", jwt.verifyJWT, HeartbeatController.sendHealth);
+routes.get("/health", HeartbeatController.sendHealth);
 routes.post("/login", UserController.loginUser);
 routes.post("/register", UserController.createUser);
 routes.post("/pixel/new", PixelController.createPixel);
