@@ -10,7 +10,7 @@ const routes = express.Router();
 routes.get("/health", HeartbeatController.sendHealth);
 routes.post("/login", UserController.loginUser);
 routes.post("/register", UserController.createUser);
-routes.post("/pixel/new", PixelController.createPixel);
+routes.post("/pixel/new", jwt.verifyJWT, PixelController.createPixel);
 routes.get("/pixel/by-mail", UserController.findPixelByUser);
 routes.get("/pixel/:name", PixelController.getPixelByName);
 routes.post("/pixel/:id/feed", PixelController.feedPixel);
