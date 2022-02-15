@@ -4,6 +4,10 @@ const Feature = require("../model/Feature");
 async function createPixel(req, res) {
   const { name, eye } = req.body;
 
+  if (!name || !eye) {
+    return res.status(400).json({ error: "missing required fields in body" });
+  }
+
   const newPixel = await Pixel.create({ name, eye });
 
   return res.status(200).json(newPixel);

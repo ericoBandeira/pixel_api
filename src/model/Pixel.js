@@ -4,7 +4,6 @@ class Pixel extends Model {
   static init(sequelize) {
     super.init(
       {
-        id: { type: DataTypes.INTEGER, primaryKey: true },
         name: { type: DataTypes.TEXT },
         eye: { type: DataTypes.TEXT },
       },
