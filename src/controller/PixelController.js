@@ -1,16 +1,29 @@
 const Pixel = require("../model/Pixel");
 const Feature = require("../model/Feature");
+const User = require("../model/User");
 
 async function createPixel(req, res) {
   const { name, eye } = req.body;
+
+  const userId = req.decoded.user_id;
 
   if (!name || !eye) {
     return res.status(400).json({ error: "missing required fields in body" });
   }
 
   const newPixel = await Pixel.create({ name, eye });
+  if (!newPixel) {
+    return res.status(500).json({ error: "could not create pixel" });
+  }
 
-  return res.status(200).json(newPixel);
+  const user = await User.findByPk(userId);
+  if (!user) {
+    return res.status(404).json({ error: "user not found" });
+  }
+
+  const userPixel = await user.setPixel(newPixel);
+
+  return res.status(200).json(userPixel);
 }
 
 async function getPixelByName(req, res) {
