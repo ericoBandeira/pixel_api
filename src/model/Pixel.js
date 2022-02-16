@@ -6,6 +6,7 @@ class Pixel extends Model {
       {
         name: { type: DataTypes.TEXT },
         eye: { type: DataTypes.TEXT },
+        color: { type: DataTypes.TEXT },
       },
       {
         sequelize,

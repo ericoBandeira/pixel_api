@@ -11,6 +11,7 @@ module.exports = {
       },
       name: { type: Sequelize.TEXT, allowNull: false },
       eye: { type: Sequelize.TEXT, allowNull: false },
+      color: { type: Sequelize.TEXT, allowNull: true },
       team_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

@@ -35,15 +35,15 @@ async function addAllFeatures(pixel) {
 }
 
 async function createPixel(req, res) {
-  const { name, eye } = req.body;
+  const { name, eye, color } = req.body;
 
   const userId = req.decoded.user_id;
 
-  if (!name || !eye) {
+  if (!name || !eye || !color) {
     return res.status(400).json({ error: "missing required fields in body" });
   }
 
-  const newPixel = await Pixel.create({ name, eye });
+  const newPixel = await Pixel.create({ name, eye, color });
   if (!newPixel) {
     return res.status(500).json({ error: "could not create pixel" });
   }
