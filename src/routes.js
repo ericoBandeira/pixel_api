@@ -17,5 +17,8 @@ routes.post("/pixel/:id/feed", PixelController.feedPixel);
 routes.get("/features", FeatureController.getFeatures);
 routes.post("/pixel/:id/feature/:feat_id/enable", PixelController.enablePixelFeature);
 routes.post("/team/new", TeamController.createTeam);
+routes.get("/team/:team_id/pixel", TeamController.getTeamPixel);
+routes.post("/team/:team_id/pixel/:pixel_id/associate", TeamController.setTeamPixel);
+routes.get("/teams", TeamController.getTeams);
 
 module.exports = routes;
