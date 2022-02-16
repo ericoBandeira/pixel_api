@@ -4,7 +4,6 @@ class Feature extends Model {
   static init(sequelize) {
     super.init(
       {
-        id: { type: DataTypes.INTEGER, primaryKey: true },
         name: { type: DataTypes.TEXT },
         value: { type: DataTypes.INTEGER },
         active: { type: DataTypes.BOOLEAN },
