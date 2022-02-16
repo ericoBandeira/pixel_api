@@ -12,7 +12,6 @@ routes.post("/login", UserController.loginUser);
 routes.post("/register", UserController.createUser);
 routes.post("/pixel/new", jwt.verifyJWT, PixelController.createPixel);
 routes.get("/pixel/by-mail", UserController.findPixelByUser);
-routes.get("/pixel/:name", PixelController.getPixelByName);
 routes.post("/pixel/:id/feed", PixelController.feedPixel);
 routes.get("/features", FeatureController.getFeatures);
 routes.post("/pixel/:id/feature/:feat_id/enable", PixelController.enablePixelFeature);
