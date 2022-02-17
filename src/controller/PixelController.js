@@ -128,8 +128,22 @@ async function enablePixelFeature(req, res) {
   return res.status(200).json(features);
 }
 
+async function getPixelFeatures(req, res) {
+  const { pixel_id } = req.params;
+
+  const pixel = await Pixel.findByPk(pixel_id);
+  if (!pixel) {
+    return res.status(404).json({ error: "pixel not found" });
+  }
+
+  const features = await pixel.getFeatures();
+
+  return res.status(200).json(features);
+}
+
 module.exports = {
   createPixel,
   feedPixel,
   enablePixelFeature,
+  getPixelFeatures,
 };

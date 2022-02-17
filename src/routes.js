@@ -15,6 +15,7 @@ routes.post("/pixel/new", jwt.verifyJWT, PixelController.createPixel);
 routes.get("/pixel/by-mail", UserController.findPixelByUser);
 routes.post("/pixel/:id/feed", PixelController.feedPixel);
 routes.get("/features", FeatureController.getFeatures);
+routes.get("/pixel/:pixel_id/features", PixelController.getPixelFeatures);
 routes.post("/pixel/:id/feature/:feat_id/enable", PixelController.enablePixelFeature);
 routes.post("/team/new", TeamController.createTeam);
 routes.get("/team/:team_id/pixel", TeamController.getTeamPixel);
