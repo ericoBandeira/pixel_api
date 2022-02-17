@@ -10,10 +10,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-  - url: https://virtserver.swaggerhub.com/lucas832/pixel_api/1.0.0
-    description: SwaggerHub API Auto Mocking
-  - url: http://localhost:3001
-    description: SwaggerHub API Auto Mocking
+  - url: localhost:3001
+    description: Instância local do pixel server
 tags:
   - name: comuns
     description: Rotas que não exigem token
@@ -26,33 +24,28 @@ paths:
         - comuns
       summary: obtém status do servidor
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
+        Essa rota permite verificar se o servidor está em execução
       operationId: searchInventory
       responses:
         "200":
-          description: search results matching criteria
+          description: O servidor está online
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/HealthData"
+                $ref: "#/components/schemas/HealthData"
         "400":
           description: bad input parameter
   /login:
     post:
       tags:
-        - trancadas
+        - comuns
       summary: efetua o login
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/LoginRequest"
+              $ref: "#/components/schemas/LoginRequest"
 
       responses:
         "200":
@@ -67,8 +60,15 @@ paths:
   /pixel/new:
     post:
       tags:
-        - comuns
+        - trancadas
       summary: cria um novo pixel
+      parameters:
+        - in: header
+          name: X-Access-Token
+          description: token de usuário obtido após fazer login
+          schema:
+            type: string
+          required: true
 
       requestBody:
         required: true
@@ -78,26 +78,6 @@ paths:
               type: array
               items:
                 $ref: "#/components/schemas/CreatePixelRequest"
-
-      responses:
-        "200":
-          description: o pixel foi criado
-
-  /pixel/{name}:
-    get:
-      tags:
-        - "comuns"
-      summary: Obtém um pixel por nome
-      description: Pesquisa por um pixel que contenha um determinado nome. O nome dos pixels é único
-      parameters:
-        - name: "name"
-          in: "path"
-          description: "nome do pixel a ser retornado"
-          required: true
-          content:
-            application/json:
-              schema:
-                type: string
 
       responses:
         "200":
@@ -113,22 +93,48 @@ paths:
       responses:
         "200":
           description: a lista de características foi obtida com sucesso
-          #content:
-          #  application/json:
-          #    schema:
-          #      type: array
-          #      items:
-          #        $ref: "#/components/schemas/LoginResult"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedPixelBody"
+        "500":
+          description: erro interno do servidor. verifique se o banco de dados está funcionando
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
 
-  /pixel/by-mail/{mail}
+  /pixel/by-mail:
     get:
       tags:
         - comuns
       summary: retorna os pixels de um usuário
+      parameters:
+        - in: query
+          name: mail
+          schema:
+            type: string
+          required: true
 
       responses:
         "200":
           description: O usuário possui um pixel associado a ele
+        "400":
+          description: a requisição está inválida (nenhum parâmetro de busca foi passado)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GenericError"
+        "404":
+          description: usuário não foi encontrado/usuário não possui nenhum pixel
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GenericError"
 
   /pixel/{pixelId}/feed:
     post:
@@ -151,16 +157,128 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/FeedPixelBody"
+              $ref: "#/components/schemas/FeedPixelBody"
 
       responses:
         "200":
           description: o pixel foi alimentado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedPixelBody"
+
+        "404":
+          description: o pixel não foi encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+
+  /register:
+    post:
+      tags:
+        - comuns
+      summary: cria um usuário
+      description: Cria um novo usuário no sisema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+
+      responses:
+        "200":
+          description: "usuário criado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterUserResponse"
+
+        "500":
+          description: "falha ao criar usuário (usuário já existe ou banco pode estar fora do ar)"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+
+  /pixel/{pixelId}/features:
+    get:
+      tags:
+        - comuns
+      summary: obtém as características de um pixel
+      parameters:
+        - in: path
+          name: pixelId
+          schema:
+            type: integer
+          description: ID do pixel
+          required: true
+
+      responses:
+        "200":
+          description: as características foram obtidas com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedPixelBody"
+
+        "404":
+          description: o pixel não existe
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+
+  /team/new:
+    post:
+      tags:
+        - comuns
+      summary: cria um novo time
+
+      responses:
+        "200":
+          description: o time foi criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeamCreated"
 
 components:
   schemas:
+    TeamCreated:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do time criado
+        createdAt:
+          type: string
+          description: data de criação
+        updatedAt:
+          type: string
+          description: data de atualização
+
+    RegisterUserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do usuário criado
+          example: 1
+        email:
+          type: string
+          description: email do usuário criado
+          example: test@email.org
+
+    GenericError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: mensagem de erro
+          example: "mensagem de erro qualquer"
+
     HealthData:
       type: object
       properties:
@@ -201,6 +319,7 @@ components:
       required:
         - name
         - eye
+        - color
       type: object
       properties:
         name:
@@ -209,6 +328,9 @@ components:
         eye:
           type: string
           example: olho 1
+        color:
+          type: string
+          example: "#ff0011"
 
     FeedPixelBody:
       required:
