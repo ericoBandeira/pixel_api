@@ -1,4 +1,4 @@
-# Pixel API
+# Pixel API [![CodeFactor](https://www.codefactor.io/repository/github/ericobandeira/pixel_api/badge)](https://www.codefactor.io/repository/github/ericobandeira/pixel_api)
 
 API do projeto pixel. Acesse a API pelo [link](https://app.swaggerhub.com/apis-docs/lucas832/pixel_api/1.0.0)
 
