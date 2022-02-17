@@ -40,3 +40,21 @@ npx sequelize db:seed:all
 ```
 
 _IMPORTANTE_: a url do banco é construída da seguinte maneira: `postgres://$DB_USER:$DB_PASS@$DB_HOST:$DB_PORT/$DB_NAME`
+
+4.1 - Deploy no heroku
+
+Para realizar o deploy no heroku, configure a `DATABASE_URL` usando a URL fornecida pelo heroku. Após isso, configure a
+variável de ambiente `SECURE_MODE` e altere o seu valor para 1, conforme a seguir:
+
+```bash
+echo SECURE_MODE=1 >> .env
+```
+
+Para rodar as migrations no banco de dados do heroku, passe a flag `--env production` para o sequelize:
+
+```bash
+npx sequelize db:migrate --env production
+npx sequelize db:seed:all --env production
+```
+
+As configurações de deploy estão localizadas em [config.json](./src/database/config/config.json)
