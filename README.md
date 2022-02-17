@@ -1,6 +1,6 @@
 # Pixel API
 
-API do projeto pixel
+API do projeto pixel. Acesse a API pelo [link](https://app.swaggerhub.com/apis-docs/lucas832/pixel_api/1.0.0)
 
 # Deploy
 
