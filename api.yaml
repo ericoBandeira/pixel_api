@@ -361,17 +361,17 @@ components:
           example: 2
         recognition:
           type: integer
-          description: consistência
+          description: reconhecimento
           example: 3
         efficiency:
           type: integer
-          description: consistência
+          description: eficiência
           example: 0
         minimalism:
           type: integer
-          description: consistência
+          description: minimalismo
           example: 0
         error_prevention:
           type: integer
-          description: consistência
+          description: prevenção de erros
           example: 0
