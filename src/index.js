@@ -18,6 +18,7 @@ const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT } =
 const connectionString = `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
 console.info("connecting to postgres using " + connectionString);
+console.info("DATABASE_URL=" + connectionString);
 console.info(`secure mode: ${SECURE_MODE == 1 ? "enabled" : "disabled"}`);
 
 const options =
