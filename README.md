@@ -1,6 +1,6 @@
-# pixel_api
+# Pixel API
 
-Esta é a API do projeto pixel
+API do projeto pixel
 
 # Deploy
 
