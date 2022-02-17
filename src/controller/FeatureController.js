@@ -1,9 +1,13 @@
 const Feature = require("../model/Feature");
 
 async function getFeatures(req, res) {
-  const features = await Feature.findAll();
+  try {
+    const features = await Feature.findAll();
 
-  return res.status(200).json(features);
+    return res.status(200).json(features);
+  } catch (err) {
+    return res.status(500).json({ error: "could not get features" });
+  }
 }
 
 module.exports = { getFeatures };
