@@ -11,11 +11,17 @@ const morgan = require("morgan");
 
 env.config();
 
-const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT } =
+const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT, DATABASE_URL } =
   process.env;
 
 // Inicia o banco de dados
-const connectionString = `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+let connectionString = ""
+if(DATABASE_URL != "") {
+  connectionString = `${DATABASE_URL}` 
+}
+else {
+  connectionString = `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+}
 
 console.info("connecting to postgres using " + connectionString);
 console.info("DATABASE_URL=" + connectionString);
