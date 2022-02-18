@@ -10,6 +10,9 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/lucas832/pixel_api/1.0.0
   - url: localhost:3001
     description: Instância local do pixel server
 tags:
@@ -230,6 +233,39 @@ paths:
               schema:
                 $ref: "#/components/schemas/GenericError"
 
+  /pixel/{pixelId}/feature/{featId}/enable:
+    post:
+      tags:
+        - comuns
+      summary: habilita/desabilita uma característica do pixel
+      parameters:
+        - in: path
+          name: pixelId
+          description: ID do pixel
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: featId
+          description: ID da característica
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: as características foram atualizadas com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeaturesList"
+        "404":
+          description: pixel ou característica não foi encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+
   /team/new:
     post:
       tags:
@@ -244,8 +280,116 @@ paths:
               schema:
                 $ref: "#/components/schemas/TeamCreated"
 
+  /team/{teamId}/pixel:
+    get:
+      tags:
+        - comuns
+      summary: obtém o pixel de um time
+      parameters:
+        - in: path
+          name: teamId
+          description: ID do time
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "204":
+          description: o time não possui pixel associado
+        "200":
+          description: o pixel foi obtido com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PixelModel"
+
+  /team/{teamId}/pixel/{pixelId}/associate:
+    post:
+      tags:
+        - comuns
+      summary: associa um pixel a um time
+      parameters:
+        - in: path
+          name: teamId
+          description: ID do time de destino do pixel
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: pixelId
+          description: ID do pixel a ser associado
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: o pixel foi associado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PixelModel"
+        "404":
+          description: pixel ou time não foram localizados
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+        "400":
+          description: o time já possui um pixel associado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+
+  /teams:
+    get:
+      tags:
+        - comuns
+      summary: obtém a lista de times disponíveis
+
+      responses:
+        "200":
+          description: "a lista de times  foi obtida com sucesso"
+
 components:
   schemas:
+    PixelModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          example: "pixel 15"
+        eye:
+          type: string
+        color:
+          type: string
+          example: "#00ff00"
+        createdAt:
+          type: string
+          example: "2022-02-16T01:36:00.678Z"
+        updatedAt:
+          type: string
+          example: "2022-02-17T01:36:00.678Z"
+        team_id:
+          type: integer
+        user_id:
+          type: integer
+    FeaturesList:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        value:
+          type: integer
+        active:
+          type: boolean
+        feeding_date:
+          type: string
     TeamCreated:
       type: object
       properties:
