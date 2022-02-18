@@ -17,9 +17,7 @@ async function getTeamPixel(req, res) {
 
   const pixel = await team.getPixel();
   if (!pixel) {
-    return res
-      .status(200)
-      .json({ message: "there's no pixel associated with this team" });
+    return res.status(204);
   }
 
   return res.status(200).json(pixel);
