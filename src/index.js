@@ -11,16 +11,29 @@ const morgan = require("morgan");
 
 env.config();
 
-const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT, PORT } =
-  process.env;
+const {
+  DB_USER,
+  DB_PASS,
+  DB_NAME,
+  DB_HOST,
+  DB_PORT,
+  SECURE_MODE,
+  APP_PORT,
+  PORT,
+  DATABASE_URL,
+} = process.env;
 
 // Inicia o banco de dados
-let connectionString = ""
-if(DATABASE_URL != "") {
-  connectionString = `${DATABASE_URL}` 
-}
-else {
+let connectionString = "";
+if (DATABASE_URL != "") {
+  connectionString = `${DATABASE_URL}`;
+} else {
   connectionString = `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+}
+
+if (APP_PORT === undefined) {
+  console.error("APP_PORT variable is undefined");
+  process.exit(0);
 }
 
 console.info("connecting to postgres using " + connectionString);
@@ -73,10 +86,10 @@ db.authenticate().then(
     app.use(morgan("short"));
     app.use(routes);
 
-    if(PORT != undefined) {
+    if (PORT != undefined) {
       APP_PORT = PORT;
     }
-    
+
     app.listen(APP_PORT);
     console.info(`HTTP server listening on port ${APP_PORT}`);
   },
