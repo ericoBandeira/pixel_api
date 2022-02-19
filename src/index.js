@@ -11,8 +11,7 @@ const morgan = require("morgan");
 
 env.config();
 
-const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT, DATABASE_URL } =
-  process.env;
+const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT, DATABASE_URL, PORT } = process.env;
 
 // Inicia o banco de dados
 let connectionString = ""
@@ -73,6 +72,10 @@ db.authenticate().then(
     app.use(morgan("short"));
     app.use(routes);
 
+    if(PORT != undefined) {
+      APP_PORT = PORT;
+    }
+    
     app.listen(APP_PORT);
     console.info(`HTTP server listening on port ${APP_PORT}`);
   },
