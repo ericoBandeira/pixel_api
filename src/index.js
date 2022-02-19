@@ -11,7 +11,8 @@ const morgan = require("morgan");
 
 env.config();
 
-const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT, DATABASE_URL, PORT } = process.env;
+const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT, SECURE_MODE, APP_PORT, PORT } =
+  process.env;
 
 // Inicia o banco de dados
 let connectionString = ""
