@@ -47,6 +47,7 @@ Para realizar o deploy no heroku, configure a `DATABASE_URL` usando a URL fornec
 variável de ambiente `SECURE_MODE` e altere o seu valor para 1, conforme a seguir:
 
 ```bash
+export DATABASE_URL='url do banco do heroku'
 echo SECURE_MODE=1 >> .env
 ```
 
