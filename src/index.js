@@ -86,12 +86,14 @@ db.authenticate().then(
     app.use(morgan("short"));
     app.use(routes);
 
+    let listenPort = Number.parseInt(APP_PORT);
+
     if (PORT != undefined) {
-      APP_PORT = PORT;
+      listenPort = Number.parseInt(PORT);
     }
 
-    app.listen(APP_PORT);
-    console.info(`HTTP server listening on port ${APP_PORT}`);
+    app.listen(listenPort);
+    console.info(`HTTP server listening on port ${listenPort}`);
   },
   (rejected) => {
     console.error(`could not start HTTP server: ${rejected}`);
