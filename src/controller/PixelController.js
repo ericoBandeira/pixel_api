@@ -3,25 +3,59 @@ const Feature = require("../model/Feature");
 const User = require("../model/User");
 
 async function addAllFeatures(pixel) {
-  const visibility_feat = await Feature.findOne({
-    where: { name: "visibility" },
+  const visibility_feat = await Feature.create({
+    name: "visibility",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
   });
-  const match_feat = await Feature.findOne({ where: { name: "match" } });
-  const control_feat = await Feature.findOne({ where: { name: "control" } });
-  const consistence_feat = await Feature.findOne({
-    where: { name: "consistence" },
+
+  const match_feat = await Feature.create({
+    name: "match",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
   });
-  const recognition_feat = await Feature.findOne({
-    where: { name: "recognition" },
+
+  const control_feat = await Feature.create({
+    name: "control",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
   });
-  const efficiency_feat = await Feature.findOne({
-    where: { name: "efficiency" },
+
+  const consistence_feat = await Feature.create({
+    name: "vconsistence",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
   });
-  const minimalism_feat = await Feature.findOne({
-    where: { name: "minimalism" },
+
+  const recognition_feat = await Feature.create({
+    name: "recognition",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
   });
-  const error_prevention_feat = await Feature.findOne({
-    where: { name: "error_prevention" },
+
+  const efficiency_feat = await Feature.create({
+    name: "efficiency",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
+  });
+  const minimalism_feat = await Feature.create({
+    name: "minimalism",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
+  });
+
+  const error_prevention_feat = await Feature.create({
+    name: "error_prevention",
+    value: 0,
+    active: true,
+    feeding_date: new Date(),
   });
 
   await pixel.addFeature(visibility_feat);
