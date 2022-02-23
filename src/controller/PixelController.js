@@ -25,7 +25,7 @@ async function addAllFeatures(pixel) {
   });
 
   const consistence_feat = await Feature.create({
-    name: "vconsistence",
+    name: "consistence",
     value: 0,
     active: true,
     feeding_date: new Date(),
