@@ -8,6 +8,7 @@ const Team = require("./model/Team");
 const User = require("./model/User");
 const { Sequelize } = require("sequelize");
 const morgan = require("morgan");
+const { FeedingHistory } = require("./model/FeedingHistory");
 
 env.config();
 
@@ -73,11 +74,13 @@ db.authenticate().then(
     Pixel.init(db);
     Team.init(db);
     User.init(db);
+    FeedingHistory.init(db);
 
     Feature.associate(db.models);
     Pixel.associate(db.models);
     Team.associate(db.models);
     User.associate(db.models);
+    FeedingHistory.associate(db.models);
 
     // Inicia o servidor HTTP
     const app = express();
