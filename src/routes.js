@@ -13,7 +13,7 @@ routes.post("/login", UserController.loginUser);
 routes.post("/register", UserController.createUser);
 routes.post("/pixel/new", jwt.verifyJWT, PixelController.createPixel);
 routes.get("/pixel/by-user", UserController.findPixelByUser);
-routes.post("/pixel/:id/feed", PixelController.feedPixel);
+routes.post("/pixel/:id/feed", jwt.verifyJWT, PixelController.feedPixel);
 routes.get("/features", FeatureController.getFeatures);
 routes.get("/pixel/:pixel_id/features", PixelController.getPixelFeatures);
 routes.post(
