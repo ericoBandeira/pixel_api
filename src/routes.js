@@ -27,5 +27,6 @@ routes.post(
   TeamController.setTeamPixel
 );
 routes.get("/teams", TeamController.getTeams);
+routes.get("/pixel/:id/history", PixelController.getFeedingHistorybyID);
 
 module.exports = routes;

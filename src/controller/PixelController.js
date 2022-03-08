@@ -191,9 +191,23 @@ async function getPixelFeatures(req, res) {
   return res.status(200).json(features);
 }
 
+async function getFeedingHistorybyID(req, res) {
+  const { id } = req.params;
+
+  const pixel = await Pixel.findByPk(id);
+  if (!pixel) {
+    return res.status(404).json({ error: "pixel not found" });
+  }
+
+  const history = await pixel.getFeedingHistories();
+
+  return res.status(200).json(history);
+}
+
 module.exports = {
   createPixel,
   feedPixel,
   enablePixelFeature,
   getPixelFeatures,
+  getFeedingHistorybyID,
 };
