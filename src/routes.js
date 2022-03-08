@@ -12,14 +12,20 @@ routes.get("/health", HeartbeatController.sendHealth);
 routes.post("/login", UserController.loginUser);
 routes.post("/register", UserController.createUser);
 routes.post("/pixel/new", jwt.verifyJWT, PixelController.createPixel);
-routes.get("/pixel/by-mail", UserController.findPixelByUser);
+routes.get("/pixel/by-user", UserController.findPixelByUser);
 routes.post("/pixel/:id/feed", PixelController.feedPixel);
 routes.get("/features", FeatureController.getFeatures);
 routes.get("/pixel/:pixel_id/features", PixelController.getPixelFeatures);
-routes.post("/pixel/:id/feature/:feat_id/enable", PixelController.enablePixelFeature);
+routes.post(
+  "/pixel/:id/feature/:feat_id/enable",
+  PixelController.enablePixelFeature
+);
 routes.post("/team/new", TeamController.createTeam);
 routes.get("/team/:team_id/pixel", TeamController.getTeamPixel);
-routes.post("/team/:team_id/pixel/:pixel_id/associate", TeamController.setTeamPixel);
+routes.post(
+  "/team/:team_id/pixel/:pixel_id/associate",
+  TeamController.setTeamPixel
+);
 routes.get("/teams", TeamController.getTeams);
 
 module.exports = routes;
