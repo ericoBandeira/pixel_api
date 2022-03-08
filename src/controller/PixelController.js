@@ -98,6 +98,8 @@ async function createPixel(req, res) {
 
 async function feedPixel(req, res) {
   const { id } = req.params;
+  const userId = Number.parseInt(req.decoded.user_id);
+  let fail = false;
   const {
     visibility,
     match,
@@ -117,6 +119,7 @@ async function feedPixel(req, res) {
   const features = await pixel.getFeatures();
 
   features.forEach(async (feat) => {
+    // FIXME: check if value needs to be changed
     if (feat.name === "visibility") {
       feat.value = visibility ? visibility : feat.value;
     } else if (feat.name === "match") {
@@ -145,13 +148,21 @@ async function feedPixel(req, res) {
       await pixel.addFeedingHistory({
         feature_name: feat.name,
         fed_at: feat.feeding_date,
+        fed_by: userId,
         active: feat.active,
+        pixel_id: null,
+        created_at: new Date(),
+        updated_at: new Date(),
       });
     } catch (err) {
-      console.error(`could not updated history: ${err}`);
-      return res.status(500).json({ error: "could not insert history entry" });
+      console.error(`could not update history: ${err}`);
+      fail = true;
     }
   });
+
+  if (fail) {
+    return res.status(500).json({ error: "could not insert history entry" });
+  }
 
   return res.status(200).json(features);
 }
