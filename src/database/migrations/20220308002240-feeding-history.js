@@ -15,6 +15,13 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      pixel_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: "pixels", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

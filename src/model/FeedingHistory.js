@@ -14,6 +14,10 @@ class FeedingHistory extends Model {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.Pixel, { foreignKey: "pixel_id" });
+  }
 }
 
 module.exports = { FeedingHistory };

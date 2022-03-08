@@ -18,6 +18,7 @@ class Pixel extends Model {
   static associate(models) {
     this.belongsTo(models.Team, { foreignKey: "team_id" });
     this.hasMany(models.Feature, { foreignKey: "pixel_id" });
+    this.hasMany(models.FeedingHistory, { foreignKey: "pixel_id" });
     this.belongsTo(models.User, { foreignKey: "user_id" });
   }
 }
