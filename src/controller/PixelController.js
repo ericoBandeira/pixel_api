@@ -200,6 +200,9 @@ async function getFeedingHistorybyID(req, res) {
   }
 
   const history = await pixel.getFeedingHistories();
+  if (!history) {
+    return res.status(204);
+  }
 
   return res.status(200).json(history);
 }
