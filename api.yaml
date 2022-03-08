@@ -410,9 +410,9 @@ components:
           type: integer
           description: ID do usuário criado
           example: 1
-        email:
+        registration:
           type: string
-          description: email do usuário criado
+          description: matrícula do usuário criado
           example: test@email.org
 
     GenericError:
@@ -433,13 +433,13 @@ components:
 
     LoginRequest:
       required:
-        - email
+        - registration
         - password
       type: object
       properties:
-        email:
+        registration:
           type: string
-          description: email do usuário
+          description: matrícula do usuário
           example: email@test.com
         password:
           type: string
@@ -448,16 +448,16 @@ components:
 
     LoginResult:
       required:
-        - email
+        - registration
         - id
       type: object
       properties:
         id:
           type: integer
           description: id do usuário criado
-        email:
+        registration:
           type: string
-          description: email do usuário criado
+          description: matrícula do usuário criado
 
     CreatePixelRequest:
       required:
