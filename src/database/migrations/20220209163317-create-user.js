@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      email: { type: Sequelize.TEXT, allowNull: false, unique: true },
+      registration: { type: Sequelize.TEXT, allowNull: false, unique: true },
       password: { type: Sequelize.TEXT, allowNull: false },
       team_id: {
         type: Sequelize.INTEGER,
