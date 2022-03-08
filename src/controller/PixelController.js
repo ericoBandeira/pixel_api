@@ -142,7 +142,7 @@ async function feedPixel(req, res) {
 
     // Creates an entry into history
     try {
-      await FeedingHistory.create({
+      await pixel.addFeedingHistory({
         feature_name: feat.name,
         fed_at: feat.feeding_date,
         active: feat.active,
