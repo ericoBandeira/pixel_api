@@ -1,6 +1,7 @@
 const Pixel = require("../model/Pixel");
 const Feature = require("../model/Feature");
 const User = require("../model/User");
+const { FeedingHistory } = require("../model/FeedingHistory");
 
 async function addAllFeatures(pixel) {
   const visibility_feat = await Feature.create({
@@ -134,7 +135,22 @@ async function feedPixel(req, res) {
       feat.value = error_prevention ? error_prevention : feat.value;
     }
 
+    // updates feeding date of this feature
+    feat.feeding_date = new Date();
+
     await feat.save();
+
+    // Creates an entry into history
+    try {
+      await FeedingHistory.create({
+        feature_name: feat.name,
+        fed_at: feat.feeding_date,
+        active: feat.active,
+      });
+    } catch (err) {
+      console.error(`could not updated history: ${err}`);
+      return res.status(500).json({ error: "could not insert history entry" });
+    }
   });
 
   return res.status(200).json(features);
