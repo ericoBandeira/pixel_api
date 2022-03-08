@@ -210,7 +210,10 @@ async function getFeedingHistorybyID(req, res) {
     return res.status(404).json({ error: "pixel not found" });
   }
 
-  const history = await pixel.getFeedingHistories();
+  const history = await pixel.getFeedingHistories({
+    attributes: ["feature_name", "fed_at", "fed_by", "active"],
+  });
+
   if (!history) {
     return res.status(204);
   }
