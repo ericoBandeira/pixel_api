@@ -26,7 +26,7 @@ const {
 
 // Inicia o banco de dados
 let connectionString = "";
-if (DATABASE_URL != "") {
+if (DATABASE_URL != undefined) {
   connectionString = `${DATABASE_URL}`;
 } else {
   connectionString = `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
