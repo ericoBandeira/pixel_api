@@ -352,8 +352,53 @@ paths:
         "200":
           description: "a lista de times  foi obtida com sucesso"
 
+  /pixel/:id/history:
+    get:
+      tags:
+        - trancadas
+      summary: obtém o histórico de alimentação do pixel
+      parameters:
+        - in: header
+          name: X-Access-Token
+          description: token de usuário obtido após fazer login
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "200":
+          description: "O histórico de alimentação foi obtido com sucesso. Poderá retornar um array vazio caso o pixel não tenha sido alimentado anteriormente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedingHistoryData"
+
+        "404":
+          description: "O pixel em questão não existe"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+        "511":
+          description: "Não foi possível autenticar o token"
+
 components:
   schemas:
+    FeedingHistoryData:
+      type: object
+      properties:
+        feature_name:
+          type: string
+          description: "Nome da característica do pixel"
+        fed_at:
+          type: string
+          description: "Data de alimentação do pixel"
+        fed_by:
+          type: integer
+          description: "ID do usuário que alimentou o pixel"
+        active:
+          type: boolean
+          description: "Contém flag para saber o estado da característica (ativada ou desativada)"
     PixelModel:
       type: object
       properties:
