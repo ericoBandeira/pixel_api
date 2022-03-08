@@ -15,6 +15,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      fed_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       pixel_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

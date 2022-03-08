@@ -6,6 +6,7 @@ class FeedingHistory extends Model {
       {
         feature_name: { type: DataTypes.TEXT },
         fed_at: { type: DataTypes.DATE },
+        fed_by: { type: DataTypes.INTEGER },
         active: { type: DataTypes.BOOLEAN },
       },
       {
